@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Enums;
+
+enum DocumentStatus: String
+{
+    case Pending = 'Pending';
+    case Opened = 'Opened';
+    case Signed = 'Signed';
+
+    public static function toArray(): array
+    {
+        return array_map(fn(self $status) => $status->value, self::cases());
+    }
+
+    public static function toOptions(): array
+    {
+        return collect(self::cases())
+            ->mapWithKeys(fn(self $status) => [$status->value => $status->value])
+            ->toArray();
+    }
+}
