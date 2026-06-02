@@ -12,4 +12,9 @@ class Announcement extends Model
     protected $casts = [
         'type' => AnnouncementType::class,
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
