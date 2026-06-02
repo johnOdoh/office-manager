@@ -14,4 +14,9 @@ class Complaint extends Model
         'priority' => Priority::class,
         'status' => ComplaintStatus::class,
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

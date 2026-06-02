@@ -2,12 +2,34 @@
 
 namespace App\Enums;
 
-enum Priority: string
+use Filament\Support\Contracts\HasColor;
+
+enum Priority: string implements HasColor
 {
     case Low = 'Low';
     case Medium = 'Medium';
     case High = 'High';
     case Urgent = 'Urgent';
+
+    public function getColor(): string | array | null
+    {
+        return match ($this) {
+            self::Low => 'success',
+            self::Medium => 'warning',
+            self::High => 'danger',
+            self::Urgent => 'info',
+        };
+    }
+
+    public function getColorClass(): string | array | null
+    {
+        return match ($this) {
+            self::Low => 'bg-green-100 text-green-700',
+            self::Medium => 'bg-yellow-100 text-yellow-700',
+            self::High => 'bg-red-100 text-red-700',
+            self::Urgent => 'bg-purple-100 text-purple-700',
+        };
+    }
 
     public static function toArray(): array
     {

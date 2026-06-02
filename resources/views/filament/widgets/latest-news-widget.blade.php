@@ -35,24 +35,17 @@
                         View All
                     </a>
                 </div>
-
-                <!-- Complaint Item -->
-                <div class="flex items-center justify-between mb-3">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Air Conditioning Not Working</p>
-                        <span class="text-xs text-gray-500">Category: Facilities</span>
+                @foreach ($complaints as $complaint)
+                    <!-- Complaint Item -->
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <p class="text-sm font-medium text-gray-700">{{ $complaint->subject }}</p>
+                            <span class="text-xs text-gray-500">Status: {{ $complaint->status }}</span>
+                        </div>
+                        <span class="px-2 py-1 text-xs rounded {{ $complaint->priority->getColorClass() }}">{{ $complaint->priority }}</span>
                     </div>
-                    <span class="px-2 py-1 text-xs rounded bg-green-100 text-green-700">Reviewed</span>
-                </div>
 
-                <!-- Complaint Item -->
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-700">Network Connectivity Issues</p>
-                        <span class="text-xs text-gray-500">Category: IT</span>
-                    </div>
-                    <span class="px-2 py-1 text-xs rounded bg-red-100 text-red-700">In Progress</span>
-                </div>
+                @endforeach
             </div>
 
         </div>

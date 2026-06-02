@@ -2,11 +2,22 @@
 
 namespace App\Enums;
 
-enum ComplaintStatus: string
+use Filament\Support\Contracts\HasColor;
+
+enum ComplaintStatus: string implements HasColor
 {
     case PENDING = 'Pending';
     case IN_PROGRESS = 'In Progress';
     case CLOSED = 'Closed';
+
+    public function getColor(): string | array | null
+    {
+        return match ($this) {
+            self::PENDING => 'warning',
+            self::IN_PROGRESS => 'info',
+            self::CLOSED => 'success',
+        };
+    }
 
     public static function toArray(): array
     {

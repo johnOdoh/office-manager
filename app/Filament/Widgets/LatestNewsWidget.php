@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Announcement;
+use App\Models\Complaint;
 use Filament\Widgets\Widget;
 
 class LatestNewsWidget extends Widget
@@ -15,22 +16,7 @@ class LatestNewsWidget extends Widget
     {
         return [
             'news' => Announcement::latest()->take(3)->get(),
-            'complaints' => $this->complaints,
+            'complaints' => Complaint::latest()->take(5)->get(),
         ];
     }
-
-    public array $complaints = [
-        [
-            'title' => 'Air Conditioning Not Working',
-            'department' => 'Facilities',
-            'status' => 'Reviewed',
-            'color' => 'blue',
-        ],
-        [
-            'title' => 'Network Connectivity Issues',
-            'department' => 'IT',
-            'status' => 'In Progress',
-            'color' => 'indigo',
-        ],
-    ];
 }
