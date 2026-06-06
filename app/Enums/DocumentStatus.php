@@ -2,21 +2,25 @@
 
 namespace App\Enums;
 
-enum DocumentStatus: String
+use Filament\Support\Contracts\HasColor;
+
+enum DocumentStatus: String implements HasColor
 {
     case Pending = 'Pending';
-    case Opened = 'Opened';
-    case Signed = 'Signed';
+    case Approved = 'Approved';
+    case Rejected = 'Rejected';
+
+    public function getColor(): string | array | null
+    {
+        return match ($this) {
+            self::Pending => 'warning',
+            self::Approved => 'success',
+            self::Rejected => 'danger',
+        };
+    }
 
     public static function toArray(): array
     {
         return array_map(fn(self $status) => $status->value, self::cases());
-    }
-
-    public static function toOptions(): array
-    {
-        return collect(self::cases())
-            ->mapWithKeys(fn(self $status) => [$status->value => $status->value])
-            ->toArray();
     }
 }

@@ -17,9 +17,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sender')->constrained('users')->cascadeOnDelete();
             $table->foreignId('recipient')->constrained('users')->cascadeOnDelete();
+            $table->string('title');
             $table->string('description')->nullable();
             $table->string('file');
             $table->string('type');
+            $table->decimal('amount', 10, 2)->nullable();
+            $table->string('additional_note')->nullable();
             $table->enum('priority', Priority::toArray())->default(Priority::Low->value);
             $table->enum('status', DocumentStatus::toArray())->default(DocumentStatus::Pending->value);
             $table->timestamps();

@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enums\DocumentStatus;
 use App\Enums\DocumentType;
 use App\Enums\Priority;
-use App\Models\Complaint;
 use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,8 +17,13 @@ class Document extends Model
         'status' => DocumentStatus::class,
     ];
 
-    public function complaint()
+    public function sender()
     {
-        return $this->belongsTo(Complaint::class);
+        return $this->belongsTo(User::class, 'sender_id');
+    }
+
+    public function recipient()
+    {
+        return $this->belongsTo(User::class, 'recipient_id');
     }
 }
