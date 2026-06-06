@@ -14,10 +14,10 @@ enum Priority: string implements HasColor
     public function getColor(): string | array | null
     {
         return match ($this) {
-            self::Low => 'success',
-            self::Medium => 'warning',
-            self::High => 'danger',
-            self::Urgent => 'info',
+            self::Low => 'info',
+            self::Medium => 'primary',
+            self::High => 'warning',
+            self::Urgent => 'danger',
         };
     }
 

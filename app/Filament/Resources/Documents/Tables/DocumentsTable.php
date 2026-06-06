@@ -15,15 +15,16 @@ class DocumentsTable
     {
         return $table
             ->columns([
-                TextColumn::make('sender')
-                    ->numeric()
+                TextColumn::make('index')
+                    ->rowIndex()
+                    ->label('#'),
+                TextColumn::make('sender.name')
+                    ->label('Sent By')
                     ->sortable(),
-                TextColumn::make('recipient')
-                    ->numeric()
+                TextColumn::make('recipient.name')
+                    ->label('Recipient')
                     ->sortable(),
-                TextColumn::make('description')
-                    ->searchable(),
-                TextColumn::make('file')
+                TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('type')
                     ->badge()
@@ -33,10 +34,6 @@ class DocumentsTable
                 TextColumn::make('status')
                     ->badge(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

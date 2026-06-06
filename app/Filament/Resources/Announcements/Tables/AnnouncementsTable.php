@@ -15,6 +15,9 @@ class AnnouncementsTable
     {
         return $table
             ->columns([
+                TextColumn::make('index')
+                    ->rowIndex()
+                    ->label('#'),
                 TextColumn::make('user.name')
                     ->label('Posted By')
                     ->searchable(),

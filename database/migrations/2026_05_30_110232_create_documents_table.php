@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sender')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('recipient')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('sender_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('recipient_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('title');
             $table->string('description')->nullable();
             $table->string('file');

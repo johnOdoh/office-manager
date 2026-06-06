@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\Documents\Schemas;
 
-use App\Enums\DocumentStatus;
 use App\Enums\DocumentType;
 use App\Enums\Priority;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -15,26 +16,35 @@ class DocumentForm
     {
         return $schema
             ->components([
-                TextInput::make('sender')
-                    ->required()
-                    ->numeric(),
+                TextInput::make('title')
+                    ->required(),
                 TextInput::make('recipient')
+                    ->label('Recipient Email')
+                    ->email()
+                    ->exists(table: 'users', column: 'email')
+                    ->required(),
+                Textarea::make('description'),
+                FileUpload::make('file')
+                    ->label('Document')
                     ->required()
-                    ->numeric(),
-                TextInput::make('description'),
-                TextInput::make('file')
-                    ->required(),
+                    ->disk('public')
+                    ->directory('forms/documents')
+                    ->visibility('public')
+                    ->moveFiles()
+                    ->maxSize(1024)
+                    ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']),
                 Select::make('type')
-                    ->options(DocumentType::class)
-                    ->required(),
+                    ->options(DocumentType::toOptions())
+                    ->required()
+                    ->live(),
+                TextInput::make('amount')
+                    // ->required()
+                    ->numeric()
+                    ->prefix('₦')
+                    ->visible(fn($get) => in_array($get('type'), [DocumentType::Invoice->value, DocumentType::Expense_Claim->value, DocumentType::Reimbursement->value, DocumentType::Purchase_Order->value])),
                 Select::make('priority')
-                    ->options(Priority::class)
-                    ->default('Low')
-                    ->required(),
-                Select::make('status')
-                    ->options(DocumentStatus::class)
-                    ->default('Pending')
-                    ->required(),
+                    ->options(Priority::toOptions())
+                    ->required()
             ]);
     }
 }

@@ -15,6 +15,9 @@ class ComplaintsTable
     {
         return $table
             ->columns([
+                TextColumn::make('index')
+                    ->rowIndex()
+                    ->label('#'),
                 TextColumn::make('user.name')
                     ->label('Submitted By')
                     ->searchable()
