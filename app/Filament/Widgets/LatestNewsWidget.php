@@ -12,6 +12,11 @@ class LatestNewsWidget extends Widget
 
     protected string|array|int $columnSpan = 'full';
 
+    public static function canView(): bool
+    {
+        return request()->user()->profile()->exists();
+    }
+
     protected function getViewData(): array
     {
         return [

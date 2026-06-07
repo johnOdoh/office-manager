@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -29,7 +30,9 @@ class UserPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/user/theme.css')
             ->registration()
             ->login()
-            ->profile(isSimple: false)
+            ->passwordReset()
+            ->emailVerification()
+            ->profile(EditProfile::class, false)
             ->colors([
                 'primary' => Color::Purple,
             ])
