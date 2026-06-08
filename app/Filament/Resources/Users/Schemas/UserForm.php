@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
-use Filament\Forms\Components\DateTimePicker;
+use App\Enums\Department;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
@@ -15,20 +15,24 @@ class UserForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->readOnly(),
                 TextInput::make('email')
                     ->label('Email address')
                     ->email()
+                    ->readOnly()
                     ->required(),
-                DateTimePicker::make('email_verified_at'),
-                TextInput::make('password')
-                    ->password()
+                TextInput::make('job_title')
+                    ->label('Job Title')
                     ->required(),
-                Textarea::make('two_factor_secret')
-                    ->columnSpanFull(),
-                Textarea::make('two_factor_recovery_codes')
-                    ->columnSpanFull(),
-                DateTimePicker::make('two_factor_confirmed_at'),
+                Select::make('department')
+                    ->label('Department')
+                    ->required()
+                    ->options(Department::toOptions()),
+                TextInput::make('phone')
+                    ->label('Phone Number')
+                    ->tel()
+                    ->required(),
                 Toggle::make('is_active')
                     ->required(),
             ]);

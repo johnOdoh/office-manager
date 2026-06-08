@@ -28,6 +28,13 @@ class EditProfile extends BaseEditProfile
                     ->imagePreviewHeight(100)
                     ->maxSize(2048)
                     ->required(),
+                FileUpload::make('e_signature')
+                    ->label('E-Signature')
+                    ->image()
+                    ->disk('public')
+                    ->directory('profile/signatures')
+                    ->imagePreviewHeight(100)
+                    ->maxSize(2048),
             ];
         } else {
             $page = [
@@ -48,6 +55,13 @@ class EditProfile extends BaseEditProfile
                     ->imagePreviewHeight(100)
                     ->maxSize(2048)
                     ->required(),
+                FileUpload::make('e_signature')
+                    ->label('E-Signature')
+                    ->image()
+                    ->disk('public')
+                    ->directory('profile/signatures')
+                    ->imagePreviewHeight(100)
+                    ->maxSize(2048),
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),
             ];
@@ -62,6 +76,7 @@ class EditProfile extends BaseEditProfile
             $data['job_title'] = request()->user()->profile->job_title;
             $data['phone'] = request()->user()->profile->phone;
             $data['image'] = request()->user()->profile->image;
+            $data['e_signature'] = request()->user()->profile->e_signature;
         }
         return $data;
     }
@@ -75,6 +90,7 @@ class EditProfile extends BaseEditProfile
                 'job_title' => $this->form->getState()['job_title'],
                 'phone' => $this->form->getState()['phone'],
                 'image' => $this->form->getState()['image'],
+                'e_signature' => $this->form->getState()['e_signature'],
             ],
         );
         if (!$exists) {
