@@ -5,7 +5,6 @@ namespace App\Filament\Pages;
 use App\Filament\Pages\Auth\EditProfile;
 use Filament\Actions\Action;
 use Filament\Pages\Dashboard as BaseDashboard;
-use Google_Service_DiscoveryEngine_GoogleCloudDiscoveryengineV1DocumentProcessingConfigChunkingConfigLayoutBasedChunkingConfig;
 
 class Dashboard extends BaseDashboard
 {
@@ -21,7 +20,7 @@ class Dashboard extends BaseDashboard
     {
         if (!request()->user()->profile()->exists()) {
             return [
-                Action::make('addAnnouncement')
+                Action::make('complete_profile')
                     ->label('Complete Profile')
                     ->icon('heroicon-o-user-circle')
                     ->color('warning')
