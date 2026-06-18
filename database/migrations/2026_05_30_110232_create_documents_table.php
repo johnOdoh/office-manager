@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->string('file');
+            $table->string('approved_file')->nullable();
             $table->string('type');
             $table->decimal('amount', 10, 2)->nullable();
             $table->string('additional_note')->nullable();

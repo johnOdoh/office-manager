@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use App\Enums\DocumentStatus;
 use App\Models\Document;
+use App\Models\User;
 
 class DocumentPolicy
 {
@@ -36,7 +37,7 @@ class DocumentPolicy
      */
     public function update(User $user, Document $document): bool
     {
-        return true;
+        return $document->sender_id === $user->id && $document->status === DocumentStatus::Pending;
     }
 
     /**
@@ -44,7 +45,7 @@ class DocumentPolicy
      */
     public function delete(User $user, Document $document): bool
     {
-        return true;
+        return $document->sender_id === $user->id && $document->status === DocumentStatus::Pending;
     }
 
     /**

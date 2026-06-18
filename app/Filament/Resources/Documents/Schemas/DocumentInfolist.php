@@ -24,9 +24,16 @@ class DocumentInfolist
                     ->formatStateUsing(fn($state) => $state ? 'View Document' : 'No file')
                     ->url(fn($state) => $state ? Storage::url($state) : 'N/A', true)
                     ->color('primary'),
+                TextEntry::make('approved_file')
+                    ->label('Approved Document')
+                    ->formatStateUsing(fn($state) => $state ? 'View Document' : 'No file')
+                    ->url(fn($state) => $state ? Storage::url($state) : 'N/A', true)
+                    ->visible(fn($record) => $record->approved_file !== null)
+                    ->color('success'),
                 TextEntry::make('amount')
                     ->label('Amount (₦)')
                     ->numeric()
+                    ->visible(fn($record) => $record->amount !== null)
                     ->placeholder('-'),
                 TextEntry::make('type')
                     ->badge(),
